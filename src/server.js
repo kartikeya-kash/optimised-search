@@ -3,8 +3,9 @@ import mysql from "mysql2";
 import cors from "cors";
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: "http://localhost:5173" // <-- frontend URL
+}));app.use(express.json());
 
 const db = mysql.createConnection({
   host: "localhost",

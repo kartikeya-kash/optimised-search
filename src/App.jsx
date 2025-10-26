@@ -5,11 +5,29 @@ function App() {
   const [charData, setCharData] = useState("");
   const [category, setCategory] = useState("all");
   const [data, setData] = useState("");
+
   useEffect(() => {
     console.log(charData + "," + category);
   }, [charData, category]);
 
-  useEffect(() => {});
+  //get data from server
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/data"); // call backend
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const jsonData = await res.json(); // parse JSON
+        setData(jsonData); // update state
+        console.log("Fetched data:", jsonData);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchData(); // call the async function
+  }, []);
 
   return (
     <>
