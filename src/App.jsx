@@ -5,8 +5,7 @@ function App() {
   const [charData, setCharData] = useState("");
   const [category, setCategory] = useState("all");
   const [data, setData] = useState([]);
-  const [filteredCategory, setfilteredCategory] = useState([]); //dropdown
-  const [filteredData, setFilteredData] = useState([]); //text input //final data to be shown
+  const [filteredData, setfilteredData] = useState([]); //text input //final data to be shown
 
   useEffect(() => {
     console.log(charData + "," + category);
@@ -31,13 +30,29 @@ function App() {
     fetchData(); // call the async function
   }, []);
 
+  const categoryfun = (e) => {
+    const newCategory = e.target.value; // the category just selected
+    setCategory(newCategory);
+
+    if (newCategory === "all") {
+      setfilteredData(data);
+    } else if (newCategory === "id") {
+      const filtered = data.filter((item) =>
+        item.id.toString().includes(charData)
+      );
+      setfilteredData(filtered);
+      console.log("Filtered by id:", filtered);
+    }
+  };
+
   return (
     <>
       <input
         type="text"
         value={charData}
         onChange={(e) => {
-          setCharData(e.target.value);
+          const chard = e.target.value;
+          setCharData(chard);
         }}
         placeholder="Type something..."
       />
@@ -46,16 +61,7 @@ function App() {
         name="category"
         style={{ marginLeft: "10px" }}
         value={category}
-        onChange={(e) => {
-          const newCategory = e.target.value; // the category just selected
-          setCategory(newCategory);
-
-          if (newCategory === "all") {
-            setFilteredData(data);
-          } else {
-            setFilteredData([]); // clear filteredData for other categories
-          }
-        }}
+        onChange={categoryfun}
       >
         <option value="">select option</option>
         <option value="all">All</option>
