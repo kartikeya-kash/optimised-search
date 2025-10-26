@@ -8,3 +8,7 @@ create table data (
     pincode varchar(6) not null,
     country varchar(255) not null
 );
+
+INSERT INTO data (name, city, state, pincode, country) VALUES
+("kartikeya","Nagpur","mhabcd","410210","ireland"),
+("anirudh","Nagaland","mhabale","410211","keniya");

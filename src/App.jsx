@@ -9,6 +9,60 @@ function App() {
 
   useEffect(() => {
     console.log(charData + "," + category);
+    switch (category) {
+      case "":
+        return setfilteredData([]);
+      case "all":
+        return setfilteredData(data);
+      case "id":
+        const filteredById = data.filter(
+          (item) => item.id.toString() === charData.toString()
+        );
+        if (filteredById.length === 0) {
+          return setfilteredData([]);
+        }
+        return setfilteredData(filteredById);
+      case "name":
+        const filteredByname = data.filter((item) =>
+          item.name.toString().startsWith(charData.toString())
+        );
+        if (filteredByname.length === 0 || charData === "") {
+          return setfilteredData([]);
+        }
+        return setfilteredData(filteredByname);
+      case "city":
+        const filteredBycity = data.filter((item) =>
+          item.city.toString().startsWith(charData.toString())
+        );
+        if (filteredBycity.length === 0 || charData === "") {
+          return setfilteredData([]);
+        }
+        return setfilteredData(filteredBycity);
+      case "state":
+        const filteredBystate = data.filter((item) =>
+          item.state.toString().startsWith(charData.toString())
+        );
+        if (filteredBystate.length === 0 || charData === "") {
+          return setfilteredData([]);
+        }
+        return setfilteredData(filteredBystate);
+      case "pincode":
+        const filteredBypincode = data.filter((item) =>
+          item.pincode.toString().startsWith(charData.toString())
+        );
+        if (filteredBypincode.length === 0 || charData === "") {
+          return setfilteredData([]);
+        }
+        return setfilteredData(filteredBypincode);
+      case "country":
+        const filteredBycountry = data.filter((item) =>
+          item.country.toString().startsWith(charData.toString())
+        );
+        if (filteredBycountry.length === 0 || charData === "") {
+          return setfilteredData([]);
+        }
+        return setfilteredData(filteredBycountry);
+    }
   }, [charData, category]);
 
   //get data from server
@@ -30,21 +84,6 @@ function App() {
     fetchData(); // call the async function
   }, []);
 
-  const categoryfun = (e) => {
-    const newCategory = e.target.value; // the category just selected
-    setCategory(newCategory);
-
-    if (newCategory === "all") {
-      setfilteredData(data);
-    } else if (newCategory === "id") {
-      const filtered = data.filter((item) =>
-        item.id.toString().includes(charData)
-      );
-      setfilteredData(filtered);
-      console.log("Filtered by id:", filtered);
-    }
-  };
-
   return (
     <>
       <input
@@ -61,7 +100,10 @@ function App() {
         name="category"
         style={{ marginLeft: "10px" }}
         value={category}
-        onChange={categoryfun}
+        onChange={(e) => {
+          const newCategory = e.target.value; // the category just selected
+          setCategory(newCategory);
+        }}
       >
         <option value="">select option</option>
         <option value="all">All</option>
@@ -75,6 +117,7 @@ function App() {
       <br />
 
       <h1>Filtered Data</h1>
+      {filteredData.length === 0 && <p>No data found</p>}
       {filteredData.map((item) => (
         <li key={item.id}>
           <strong>ID:</strong> {item.id} | <strong>Name:</strong> {item.name} |{" "}
