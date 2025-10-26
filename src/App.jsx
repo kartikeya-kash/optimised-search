@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:5000/data"); // call backend
+        const res = await fetch("http://localhost:5001/data"); // call backend
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
