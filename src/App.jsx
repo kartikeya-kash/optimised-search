@@ -4,9 +4,12 @@ import "./App.css";
 function App() {
   const [charData, setCharData] = useState("");
   const [category, setCategory] = useState("all");
+  const [data, setData] = useState("");
   useEffect(() => {
-    console.log("Updated charData:", charData);
-  }, [charData]);
+    console.log(charData + "," + category);
+  }, [charData, category]);
+
+  useEffect(() => {});
 
   return (
     <>
@@ -26,11 +29,15 @@ function App() {
         onChange={(e) => setCategory(e.target.value)}
       >
         <option value="all">All</option>
-        <option value="technology">Technology</option>
-        <option value="science">Science</option>
-        <option value="business">Business</option>
-        <option value="sports">Sports</option>
+        <option value="id">id</option>
+        <option value="name">name</option>
+        <option value="city">city</option>
+        <option value="state">state</option>
+        <option value="pincode">pincode</option>
+        <option value="country">country</option>
       </select>
+
+      <p></p>
     </>
   );
 }
