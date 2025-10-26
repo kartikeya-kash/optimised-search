@@ -1,22 +1,19 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Input from "./Searchbar.jsx";
 
 function App() {
-  const [searchChar, setSearchChar] = useState("");
-
-  // Log whenever it changes
-  useEffect(() => {
-    console.log("Search Character:", searchChar);
-  }, [searchChar]);
-
   return (
     <>
-      {/* Pass props to Input */}
-      <Input
-        value={searchChar}
-        onChange={(e) => setSearchChar(e.target.value)}
-      />
+      <input type="text" />
+      <select id="category" name="category" style={{ marginLeft: "10px" }}>
+        <option value="all" selected>
+          All
+        </option>
+        <option value="technology">Technology</option>
+        <option value="science">Science</option>
+        <option value="business">Business</option>
+        <option value="sports">Sports</option>
+      </select>
     </>
   );
 }
