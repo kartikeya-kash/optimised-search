@@ -4,9 +4,9 @@ import "./App.css";
 function App() {
   const [charData, setCharData] = useState("");
   const [category, setCategory] = useState("all");
-  const [data, setData] = useState("");
-  const [filteredCategory, setfilteredCategory] = useState(""); //dropdown
-  const [filteredData, setFilteredData] = useState(""); //text input
+  const [data, setData] = useState([]);
+  const [filteredCategory, setfilteredCategory] = useState([]); //dropdown
+  const [filteredData, setFilteredData] = useState([]); //text input //final data to be shown
 
   useEffect(() => {
     console.log(charData + "," + category);
@@ -46,8 +46,18 @@ function App() {
         name="category"
         style={{ marginLeft: "10px" }}
         value={category}
-        onChange={(e) => setCategory(e.target.value)}
+        onChange={(e) => {
+          const newCategory = e.target.value; // the category just selected
+          setCategory(newCategory);
+
+          if (newCategory === "all") {
+            setFilteredData(data);
+          } else {
+            setFilteredData([]); // clear filteredData for other categories
+          }
+        }}
       >
+        <option value="">select option</option>
         <option value="all">All</option>
         <option value="id">id</option>
         <option value="name">name</option>
@@ -56,6 +66,17 @@ function App() {
         <option value="pincode">pincode</option>
         <option value="country">country</option>
       </select>
+      <br />
+
+      <h1>Filtered Data</h1>
+      {filteredData.map((item) => (
+        <li key={item.id}>
+          <strong>ID:</strong> {item.id} | <strong>Name:</strong> {item.name} |{" "}
+          <strong>City:</strong> {item.city} | <strong>State:</strong>{" "}
+          {item.state} | <strong>Pincode:</strong> {item.pincode} |{" "}
+          <strong>Country:</strong> {item.country}
+        </li>
+      ))}
       <br />
 
       <h1>All Data</h1>
