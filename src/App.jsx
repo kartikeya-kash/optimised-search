@@ -5,6 +5,8 @@ function App() {
   const [charData, setCharData] = useState("");
   const [category, setCategory] = useState("all");
   const [data, setData] = useState("");
+  const [filteredCategory, setfilteredCategory] = useState(""); //dropdown
+  const [filteredData, setFilteredData] = useState(""); //text input
 
   useEffect(() => {
     console.log(charData + "," + category);
@@ -54,8 +56,17 @@ function App() {
         <option value="pincode">pincode</option>
         <option value="country">country</option>
       </select>
+      <br />
 
-      <p></p>
+      <h1>All Data</h1>
+      {data.map((item) => (
+        <li key={item.id}>
+          <strong>ID:</strong> {item.id} | <strong>Name:</strong> {item.name} |{" "}
+          <strong>City:</strong> {item.city} | <strong>State:</strong>{" "}
+          {item.state} | <strong>Pincode:</strong> {item.pincode} |{" "}
+          <strong>Country:</strong> {item.country}
+        </li>
+      ))}
     </>
   );
 }
